@@ -203,14 +203,14 @@ namespace FixesApp.Controllers
 
         public void SendSms(string mobileNumber,string Name)
         {
-            const string accountSid = "ACf0b2da608ce92950c1df49e5e7188ac3";
-            const string authToken = "a7e48eb67732c03e24a716c37476fbbd";
+            const string accountSid = "XXXXXXXXXXXXXXXXXXXXXX";
+            const string authToken = "XXXXXXXXXXXXXXXXXXXXXXd";
             TwilioClient.Init(accountSid, authToken);
 
             var to = new PhoneNumber("+91" + mobileNumber);
             var message = MessageResource.Create(
                 to,
-                from: new PhoneNumber("+13317012761"), //  From number, must be an SMS-enabled Twilio number ( This will send sms from ur "To" numbers ).  
+                from: new PhoneNumber("+XXXXXXXXXXXXXXXXXXXXXX"), //  From number, must be an SMS-enabled Twilio number ( This will send sms from ur "To" numbers ).  
                 body: $"Hello {Name} !! Your booking with FixesApp was successful. Thank you for your booking -FixesApp");
 
             ModelState.Clear();
