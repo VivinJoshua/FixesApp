@@ -1,0 +1,88 @@
+﻿@model FixesApp.ViewModels.MainViewModel
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Navbar")
+<style>
+    #sn {
+        background-color: beige;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+  
+
+    table {
+        padding: 20px;
+    }
+
+</style>
+<center>
+    @using (Html.BeginForm("Location", "Home"))
+    {
+        <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Location)
+            @Html.TextBoxFor(x => x.Location, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Location, "", new { @class = "text-danger" })
+        </div>
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-success">Search</button>
+    }
+</center>
+<b style="float:right">Location : @ViewBag.location</b>
+<h3>Available Services</h3>
+<table class="table">
+    <tr>
+        @foreach (var val in Model.Services)
+        {
+            <td id="sn">@Html.ActionLink(val.ServiceName, "Service", "Home", new { id = val.ServiceName }, null)</td>
+
+        }
+    </tr>
+</table>
+<hr />
+
+<p style="float:right">
+    Order By
+    @Html.ActionLink("Cost", "Main", "Home", new { id = 1 }, null) |
+    @Html.ActionLink("Rating", "Main", "Home", new { id = 2 }, null)
+</p>
+
+
+<h3>Top Rated Workers</h3>
+<table class="table">
+    <tr>
+        
+        <th>Name</th>
+        <th>Location</th>
+        <th>Cost Charged per hour</th> 
+        <th>Rating</th>
+        <th>Service</th>
+    </tr>
+    @foreach (var val in Model.Worker)
+    {
+        <tr>
+            <th>
+                @if (val.workerImage != null)
+                {
+                    var base64 = Convert.ToBase64String(val.workerImage);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+                    <img src="@imgSrc" height="50px" width="50px" style="boder:1px solid red; border-radius:100px" />
+                }
+                &nbsp;
+                @Html.ActionLink(val.WorkerName, "WorkerProfile", "Home", new { id = val.WorkerId }, null)
+            </th>
+            <td>@val.Location</td>
+            <td>Rs. @val.CostPerHour</td>
+            <td>@val.Rating</td>
+            <td>@val.Servicess.ServiceName</td>
+        </tr>
+    }
+
+</table>
+<hr />

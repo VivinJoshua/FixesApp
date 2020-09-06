@@ -1,0 +1,31 @@
+﻿@model FixesApp.ViewModels.FeedbackViewModel
+@{
+    ViewBag.Title = "Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Navbar")
+<h2>Details</h2>
+<p>Name : @Model.WorkDetails.UserName</p>
+<p>Service : @Model.WorkDetails.ServiceName</p>
+<p>Date : @Convert.ToString(string.Format("{0:dd/MMM/yyyy}", Model.WorkDetails.WorkdoneDT))</p>
+
+<h3>Give Feedback</h3>
+@using (Html.BeginForm("Feedbacksave", "Home"))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Feedback.Comments)
+        @Html.TextAreaFor(x => x.Feedback.Comments, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Feedback.Comments, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Feedback.Rating)
+        <pre>
+            @Html.RadioButtonFor(x => x.Feedback.Rating, 1)   @Html.RadioButtonFor(x => x.Feedback.Rating, 2)   @Html.RadioButtonFor(x => x.Feedback.Rating, 3)   @Html.RadioButtonFor(x => x.Feedback.Rating, 4)   @Html.RadioButtonFor(x => x.Feedback.Rating, 5)
+            &#128544;  &#128543;  &#128528;  &#128516;  &#128513;
+         </pre>
+        @Html.ValidationMessageFor(x => x.Feedback.Rating, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-success">Save</button>
+}

@@ -1,0 +1,51 @@
+﻿@model FixesApp.Models.User
+@{
+    ViewBag.Title = "EditUserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditUserProfile</h2>
+@Html.Partial("_Navbar")
+
+@using (Html.BeginForm("EditUserProfile", "Home"))
+{
+    <table class="table">
+        <tr>
+            <td>
+                <p class="text-danger">@ViewBag.usernotexist</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.UserName)
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="text-danger">@ViewBag.usernotexist</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Location)
+                    @Html.TextBoxFor(x => x.Location, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Location, "", new { @class = "text-danger" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="text-danger">@ViewBag.usernotexist</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Address)
+                    @Html.TextAreaFor(x => x.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                </div>
+            </td>
+        </tr>
+
+    </table>
+    @Html.AntiForgeryToken()
+    <p style="color:red">
+        @Html.ActionLink("Cancel", "UserProfile", "Home", null,new { style="color:red"})
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</p>
+
+}

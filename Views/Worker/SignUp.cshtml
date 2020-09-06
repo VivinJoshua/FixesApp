@@ -1,0 +1,90 @@
+﻿﻿@model FixesApp.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_HomeNav")
+<h2>SignUp</h2>
+@using (Html.BeginForm("SignUp", "Worker", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<table class="table">
+
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Worker.WorkerName)
+                @Html.TextBoxFor(x => x.Worker.WorkerName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Worker.WorkerName, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Worker.ServicesId)
+                @Html.DropDownListFor(x => x.Worker.ServicesId, new SelectList(Model.Services, "ServicesId", "ServiceName"), "Select Service", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Worker.ServicesId, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Worker.MobileNumber)
+                @Html.TextBoxFor(x => x.Worker.MobileNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Worker.MobileNumber, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Worker.Location)
+                @Html.TextBoxFor(x => x.Worker.Location, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Worker.Location, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Worker.CostPerHour)
+                @Html.TextBoxFor(x => x.Worker.CostPerHour, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Worker.CostPerHour, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+
+
+
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Worker.Password)
+                @Html.PasswordFor(x => x.Worker.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Worker.Password, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(x => x.Worker.workerImage)
+            <input type="file" name="workerImage" id="workerImage" />
+        </td>
+    </tr>
+</table>
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-success">SignUp</button>
+}
+<hr />
+<p>Already Have an Account? @Html.ActionLink("Login", "Login", "Worker")</p>
+
+

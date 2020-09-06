@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FixesApp.Models.Worker>
+@{
+    ViewBag.Title = "Service";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Navbar")
+
+
+<h2>@ViewBag.Service</h2>
+
+
+    <p style="float:right">
+        Order By
+        @Html.ActionLink("Cost", "Services", "Home", new { id = 1 }, null) |
+        @Html.ActionLink("Rating", "Services", "Home", new { id = 2 }, null)
+    </p>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Cost Charged per hour</th>
+            <th>Rating</th>
+        </tr>
+        @foreach (var val in Model)
+        {
+            <tr>
+                <th>
+                    @if (val.workerImage != null)
+                    {
+                        var base64 = Convert.ToBase64String(val.workerImage);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+                        <img src="@imgSrc" height="50px" width="50px" style="boder:1px solid red; border-radius:100px" />
+                    }
+                    &nbsp;
+                    @Html.ActionLink(val.WorkerName, "WorkerProfile", "Home", new { id = val.WorkerId }, null)
+                </th>
+                <td>@val.Location</td>
+                <td>Rs. @val.CostPerHour</td>
+                <td>@val.Rating</td>
+            </tr>
+        }
+
+    </table>
+

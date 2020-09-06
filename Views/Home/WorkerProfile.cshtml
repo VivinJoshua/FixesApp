@@ -1,0 +1,96 @@
+﻿@model FixesApp.Models.Worker
+@{
+    ViewBag.Title = "WorkerProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Navbar")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+<h2>Worker Profile</h2>
+@if (Model.workerImage != null)
+{
+
+    var base64 = Convert.ToBase64String(Model.workerImage);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+    <img src="@imgSrc" height="200px" width="200px" style="boder:1px solid red; border-radius:100px" />
+    <br />
+    <br />
+}
+
+<h3>@Model.WorkerName</h3>
+<h4 style="color:#196DF9"><b>@Model.Servicess.ServiceName</b></h4>
+<p><b>Location : </b>@Model.Location</p>
+
+<p><b>Mobile Number : </b>@Model.MobileNumber</p>
+<p><b>Cost Charged per Hour : </b>Rs. @Model.CostPerHour</p>
+@if (Model.Rating == 1)
+{
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+}
+else if (Model.Rating == 2)
+{
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+}
+else if (Model.Rating == 3)
+{
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+}
+else if (Model.Rating == 4)
+{
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+}
+else
+{
+    {
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+    }
+}
+<br /><br />
+<a href="@Url.Action("BookWorker","Home", new { id = Model.WorkerId })" class="btn btn-info" ;">Book Now</a>
+
+<br />
+<hr />
+
+<h2>Comments</h2>
+@if (Model.Feedbacks.Count == 0)
+{
+    <p>No Comments Yet</p>
+}
+else
+{
+
+    foreach (var val in Model.Feedbacks)
+    {
+        <b>@val.Users.UserName</b>
+        <p>@val.Comments</p>
+        <p><b>Rating</b>: @val.Rating</p>
+        <hr />
+    }
+}
+

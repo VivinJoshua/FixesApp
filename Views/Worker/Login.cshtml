@@ -1,0 +1,49 @@
+﻿﻿@model FixesApp.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("FixesApp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("User Login", "Index", "Home")</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h2>Worker Login</h2><br />
+@using (Html.BeginForm("Login", "Worker"))
+{
+
+                <p class="text-danger">@ViewBag.usernotexist</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.MobileNumber)
+                    @Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.MobileNumber, "", new { @class = "text-danger" })
+                </div>
+
+                <p class="text-danger">@ViewBag.incorrectpassword</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Password)
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                </div>
+
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-success">Login</button>
+}
+<hr />
+@Html.ActionLink("Register as New Worker", "SignUp", "Worker")
+
+
+

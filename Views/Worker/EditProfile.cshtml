@@ -1,0 +1,44 @@
+﻿@model FixesApp.Models.Worker
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_WorkerNav")
+<h2>Edit Profile</h2>
+
+@using (Html.BeginForm("EditProfile", "Worker", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<table class="table">
+
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.WorkerName)
+                @Html.TextBoxFor(x => x.WorkerName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WorkerName, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+
+
+
+
+    <tr>
+        <td>
+            <p class="text-danger">@ViewBag.UserAlreadyExists</p>
+            <div class="form-group">
+                @Html.LabelFor(x => x.CostPerHour)
+                @Html.TextBoxFor(x => x.CostPerHour, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CostPerHour, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+
+</table>
+    @Html.AntiForgeryToken()
+    <p style="color:red">
+        @Html.ActionLink("Cancel", "WorkerProfil", "Worker", null, new { style = "color:red" })
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </p>
+}

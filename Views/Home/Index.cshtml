@@ -1,0 +1,40 @@
+﻿﻿@model FixesApp.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "User Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_HomeNav")
+<style>
+    img {
+        position: absolute;
+        right: 100px;
+        top: 0px;
+        z-index: -1;
+    }
+</style><br /><br /><br /><br /><br />
+
+<h2>Login</h2><br />
+<img src="~/Images/bg.jpg" height="650px" width="1200px" alt="lol" />
+@using (Html.BeginForm("Index", "Home"))
+{
+
+                <p class="text-danger">@ViewBag.usernotexist</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.MobileNumber)
+                    @Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.MobileNumber, "", new { @class = "text-danger" })
+                </div>
+
+                <p class="text-danger">@ViewBag.incorrectpassword</p>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Password)
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                </div>
+
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-success">Login</button>
+}
+<br />
+@Html.ActionLink("New User? SignUp Here", "SignUp", "Home")
+

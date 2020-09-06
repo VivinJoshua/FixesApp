@@ -1,0 +1,50 @@
+﻿@model List<FixesApp.Models.WorkDetails>
+@{
+    ViewBag.Title = "Pending Works";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Navbar")
+<h2>Pending Works</h2>
+
+@Html.ActionLink("Completed Works", "CompletedWorks", "Home")
+@if (Model.Count == 0)
+{
+    <p>No Pending Works</p>
+}
+else
+{
+
+
+    <table class="table">
+        <tr>
+            <th>Booking Id</th>
+            <th>Name</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Cost Per Hour</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        @foreach (var val in Model)
+        {
+            <tr>
+                <td>@val.WorkDetailsId</td>
+                <th>@Html.ActionLink(val.WorkerName, "WorkerProfile", "Home", new { id = val.WorkerId }, null)</th>
+                <td>@val.ServiceName</td>
+                <td>@val.RequestDT</td>
+                <td>Rs. @val.cost</td>
+                @if (val.RequestStatus == 0)
+                {
+                    <td style="color:orange"><b>Pending</b></td>
+                }
+                else if (val.WorkStatus == 1)
+                {
+                    <td style="color:green">Completed</td>
+                }
+                <td style="color:red"><b style="color:red">@Html.ActionLink("Cancel Booking", "CancelBooking", "Home", new { id = val.WorkDetailsId}, null)</b></td>
+            </tr>
+        }
+
+    </table>
+}

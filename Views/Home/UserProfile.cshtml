@@ -1,0 +1,18 @@
+﻿@model FixesApp.Models.User
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Navbar")
+<h2>Profile</h2>
+<p style="float:right">@Html.ActionLink("Edit profile", "EditUserProfile", "Home")</p>
+<p>Name : @Model.UserName</p>
+
+
+<p>Mobile Number : @Model.MobileNumber</p>
+<p>Address : @Model.Address</p>
+<p>Location : @Model.Location</p>
+
+<br />
+<hr />
+
